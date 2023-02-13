@@ -1,5 +1,6 @@
 # Members
 ## Riley Comer -69564904
+## Joonsik Kikm -31368871
 ###
 <br>
 
