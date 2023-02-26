@@ -9,6 +9,9 @@
 ## Description
 We are building a general DiscussionForum Website where users can post stories and comment on other's. Users posts will have category tags filtering them into diffrent categories. 
 
+## Figma
+https://www.figma.com/file/dlQzIxpewXtNf9EpWwU15P/360-Project?node-id=0%3A1&t=J28WkrQcQ7RE9mVP-0
+
 ## Requirements
 - Users can create acount.
 - Users can log into existing accounts.

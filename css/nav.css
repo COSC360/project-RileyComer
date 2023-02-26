@@ -1,0 +1,48 @@
+body {
+    background-color: var(--background);
+}
+
+main {
+    height: 100%;
+}
+
+#nav-container {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: var(--primary2);
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition: 0.5s;
+}
+
+nav {
+    padding: 20px;
+}
+
+.create-post {
+    padding: 10px;
+    border-radius: 40px;
+    background-color: var(--primary3);
+    text-align: center;
+    color: var(--text1);
+}
+
+nav a:link, nav a:visited{
+    margin: 20px;
+    display: block;
+    color:var(--link);
+    text-decoration: none;
+}
+
+#content {
+    padding: 50px;
+    padding-top: 100px;
+    height: 100vh;
+    transition: margin-left .5s;
+    overflow-y: auto;
+    box-sizing: border-box;
+}

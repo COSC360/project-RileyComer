@@ -1,0 +1,43 @@
+#content a:link, content a:visited{
+    display: block;
+    color:var(--link);
+    text-decoration: none;
+}
+
+#content .create-post {
+    width: 400px;
+    padding: 10px;
+    border-radius: 40px;
+    background-color: var(--primary3);
+    text-align: center;
+    color: var(--text1);
+}
+
+#filter-container {
+    margin-top: 50px;
+}
+
+#filter-container div {
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+#top-on {
+    background-color: var(--link);
+    display:inline;
+}
+
+#top-off {
+    background-color: var(--primary3);
+    display: none;
+}
+
+#new-on {
+    background-color: var(--link);
+    display: none;
+}
+
+#new-off {
+    background-color: var(--primary3);
+    display:inline;
+}

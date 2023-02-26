@@ -1,0 +1,68 @@
+body {
+    margin: 0;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--primary1);
+    position:absolute;
+    width: 100%;
+    height: 50px;
+    z-index: 2;
+}
+
+header span {
+    margin: auto;
+}
+
+#nav-button-opened, #nav-button-closed {
+    margin-left: 5px;
+}
+
+#nav-button-opened {
+    display:none;
+}
+
+#nav-button-opened div {
+    width: 50px;
+    height: 5px;
+    margin: 8px;
+    border-radius: 5px;
+    background-color: var(--link);
+}
+
+#nav-button-closed div {
+    width: 50px;
+    height: 5px;
+    margin: 8px;
+    border-radius: 5px;
+    background-color: var(--primary3);
+}
+
+#banner h2 {
+    color: var(--primary3);
+    margin: auto;
+}
+
+#search-bar-container {
+    width: 40%;
+}
+
+header input {
+    width: 100%;
+    height: 30px;
+    border-radius: 20px;
+    border-style: none;
+    padding-left: 10px;
+}
+
+#username {
+    margin-right: 40px;
+    color:var(--link);
+}
+
+header a:link, header a:visited {
+    color: var(--link);
+    text-decoration: none;
+}
