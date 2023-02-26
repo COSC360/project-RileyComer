@@ -1,0 +1,11 @@
+:root {
+    --background: #272727;
+    --primary1: #52595A;
+    --primary2: #3F3F3F;
+    --primary3: #D9D9D9;
+    --text1: #000000;
+    --text2: #FFFFFF;
+    --link: #90FFF8;
+
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
