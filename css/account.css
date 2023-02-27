@@ -1,0 +1,113 @@
+#content a:link, content a:visited{
+    display: block;
+    color:var(--link);
+    text-decoration: none;
+}
+
+#content .create-post {
+    width: 400px;
+    padding: 10px;
+    border-radius: 40px;
+    background-color: var(--primary3);
+    text-align: center;
+    color: var(--text1);
+}
+
+#filter-container {
+    float: right;
+}
+
+#filter-container div {
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+#top-on {
+    background-color: var(--link);
+    display:inline;
+}
+
+#top-off {
+    background-color: var(--primary3);
+    display: none;
+}
+
+#new-on {
+    background-color: var(--link);
+    display: none;
+}
+
+#new-off {
+    background-color: var(--primary3);
+    display:inline;
+}
+
+div #username{
+    font-size: 100px;
+    text-align: center;
+    width: 100%;
+    color: white;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+
+#post {
+    min-width: auto;
+    max-width: 100vw;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.5) -2px 2px 2px;
+    margin-top: 40px;
+    background-color: #3f3f3f;
+    min-height: fit-content;
+    overflow: auto;
+}
+
+#title {
+    font-size: 2em;
+    color: white;
+    text-align: center;
+    padding-top: 10px;
+}
+
+#post-title{
+    font-size: 2em;
+    text-align: left;
+    color: white;
+    min-width: fit-content;
+    text-align: left;
+}
+
+#post-username{
+    font-size: 1em;
+    color: white;
+    margin-top: 10px;
+    min-width: fit-content;
+    float: right;
+}
+
+#post-body{
+    font-size: 1em;
+    color: white;
+    text-align: left;
+    overflow: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#post-left{
+    float: left;
+    max-width: 100%;
+    padding: 40px;
+}
+
+#post-like{
+    color: white;
+    float: left;
+    padding-right: 20px;
+}
+
+#post-comment{
+    color: white;
+    float: left;
+}
