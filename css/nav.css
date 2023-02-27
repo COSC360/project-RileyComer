@@ -1,3 +1,7 @@
+a{
+    width: fit-content;
+}
+
 body {
     background-color: var(--background);
 }
@@ -43,6 +47,5 @@ nav a:link, nav a:visited{
     padding-top: 100px;
     height: 100vh;
     transition: margin-left .5s;
-    overflow-y: auto;
     box-sizing: border-box;
 }
