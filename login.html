@@ -5,16 +5,18 @@
         <title>Login</title>
         <link rel="stylesheet" href="css/main.css" />
         <link rel="stylesheet" href="css/login.css" />
+        <link rel="stylesheet" href="css/req-field.css" />
+        <script type="text/javascript" src="javascript/req-field.js"></script>
     </head>
     <body>
         <main>
             <div class="container">
                 <h1>Login</h1>
-                <form action="home.html">
+                <form method="get" action="home.html" id="mainForm">
                     <label>Email:</label>
-                    <input type="email">
+                    <input type="email" class="required">
                     <label>Password:</label>
-                    <input type="password">
+                    <input type="password" class="required">
                     <a href="forgot.html">Forgot Password?</a>
                     <button type="submit">Login</button>
                 </form>

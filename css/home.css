@@ -1,3 +1,7 @@
+a{
+    max-width: fit-content;
+}
+
 #content a:link, content a:visited{
     display: block;
     color:var(--link);
