@@ -1,9 +1,3 @@
-# Members
-## Riley Comer -69564904
-## Joonsik Kim -31368871
-###
-<br>
-
 # Project
 ## NAME: Readit
 ## Description
