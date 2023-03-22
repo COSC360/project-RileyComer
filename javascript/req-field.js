@@ -13,18 +13,7 @@ window.onload = function(){
             }
         }   
         if (invalid == true){
-            alert("Please fill out the required area.");
+            alert("Please fill out the required area. please");
         }
     };
 }
-
-
-/*if(requiredFields[i].type == "checkbox"){
-            if(!requiredFields[i].checked){
-                e.preventDefault();
-                requiredFields[i].classList.add("highlight");
-            } else {
-                requiredFields[i].classList.remove("highlight");
-            }
-        } else 
-        */
