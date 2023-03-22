@@ -15,6 +15,7 @@ session_start();
    <script src="javascript/nav.js"></script>
    <script src="javascript/home.js"></script>
 </head>
+```
 <body>
 
     <?php
@@ -45,11 +46,11 @@ session_start();
             <div></div>
             <div></div>
         </span>
-        <span id="banner"><a href="home.html"><h2>Readit</h2></a></span>
+        <span id="banner"><a href="home.php"><h2>Readit</h2></a></span>
         <span id="search-bar-container"><input type="text" placeholder="Search"></span>
         <?php 
         if(isset($_SESSION["name"]) && $_SESSION["name"] !== ''){
-            echo '<span id="username"><a href="account.html">'.$_SESSION['name'].'</a></span>';
+            echo '<span id="username"><a href="account.php">'.$_SESSION['name'].'</a></span>';
         }else{
             echo '<span id="username"><a href="login.php">Login</a></span>';
         }
@@ -60,7 +61,7 @@ session_start();
             <nav>
                 <a href="create-post.php"><div class="create-post">   Create Post   </div></a>
                 <a href="home.php"><h2>Home</h2></a>
-                <a href="account.html"><h2>Account</h2></a>
+                <a href="account.php"><h2>Account</h2></a>
             </nav>
         </div>
         <div id="content">

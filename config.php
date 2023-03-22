@@ -1,9 +1,9 @@
 <?php
 
 define('DBSERVER', 'localhost'); // Database server
-define('DBUSERNAME', ''); // Database username
-define('DBPASSWORD', ''); // Database password
-define('DBNAME', ''); // Database name
+define('DBUSERNAME', 'prokjs'); // Database username
+define('DBPASSWORD', 'prokjs'); // Database password
+define('DBNAME', '360_project'); // Database name
 
 //Riley's Testing
 /*
