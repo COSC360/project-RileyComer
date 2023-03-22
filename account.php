@@ -22,6 +22,25 @@ if (!(isset($_SESSION["name"]) && $_SESSION["name"] !== "")) {
 </head>
 <body>
     <?php
+    $image_error='';
+    if (isset($_POST['submit'])) {
+        $image_error='';
+        if (getimagesize($_FILES['profile-img']['tmp_name'])==false) {
+            echo "no image";
+        }else{
+            
+            $image = $_FILES['profile-img']['tmp_name'];
+            $size=strlen(file_get_contents(addslashes($image)));
+            if($size<65535){
+                $image= base64_encode(file_get_contents(addslashes($image)));
+                $sql = "UPDATE `users` SET `img`='$image' WHERE `name`='".$_SESSION['name']."'";
+                mysqli_query($db,$sql);
+            }else{
+                $image_error.='<p class="error">File is too large.</p>';
+            }
+        }
+    }
+
     function printPost($post){
         echo '
             <div class="post">
@@ -68,13 +87,35 @@ if (!(isset($_SESSION["name"]) && $_SESSION["name"] !== "")) {
             </nav>
         </div>
         <div id="content">
+            <div id="profile-picture">
             <?php 
+            $sql = "SELECT * FROM `users` WHERE name='" . $_SESSION["name"] . "'";
+            if ($result = mysqli_query($db, $sql)) {
+                if (mysqli_num_rows($result) === 1) {
+                    $row = mysqli_fetch_assoc($result);
+                    if($row['img']!=null){
+                        echo '<img src="data:image;base64,'.$row['img'].'"/>';
+                    }else{
+                        echo '<img src="images/default-user.jpg"/>';
+                    }
+                }
+            }
+            ?>
+            <form action="" method="POST" enctype="multipart/form-data">
+                <input name="profile-img" type="file" id="changeProfile">
+                <input name="submit" type="submit">
+                <?php 
+                echo $image_error;
+                ?>
+            </form>
+            <?php
             if(isset($_SESSION["name"]) && $_SESSION["name"] !== ''){
-                echo '<div id="username"><a id="username" href="account.php">'.$_SESSION['name'].'</a></div>';
+                echo '<div id="username">'.$_SESSION['name'].'</div>';
             }else{
                 echo '<span id="username"><a href="login.php">Login to continue</a></span>';
             }
             ?>
+            </div>
             <hr>
             <div id="title">Posts</div>
             <div id="filter-container">
