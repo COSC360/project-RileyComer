@@ -78,13 +78,14 @@ if (!(isset($_SESSION["name"]) && $_SESSION["name"] !== "")) {
             <hr>
             <div id="title">Posts</div>
             <div id="filter-container">
-                <div id="top-on">Top</div>
-                <div id="top-off" onclick="selectTop()">Top</div>
-                <div id="new-on">New</div>
-                <div id="new-off" onclick="selectNew()">New</div>
+                <div class="top-on">Top</div>
+                <div class="top-off" onclick="selectTop()">Top</div>
+                <div class="new-on">New</div>
+                <div class="new-off" onclick="selectNew()">New</div>
             </div>
+            <div class="new-on">
             <?php
-                $sql = "SELECT * FROM posts WHERE username = '" . $_SESSION['name'] . "'";
+                $sql = "SELECT * FROM posts WHERE username = '" . $_SESSION['name'] . "' ORDER BY date";
                 $results = array();
                 $data=mysqli_query($db, $sql);
                 while($line = mysqli_fetch_array($data)){
@@ -93,26 +94,19 @@ if (!(isset($_SESSION["name"]) && $_SESSION["name"] !== "")) {
                 array_map('printPost', $results);
 
             ?>
-            <!-- <div id="post-comment">Comments: ' . $row["comments"] . '</div> -->
-            <!-- VVVVV  Placeholder copy to visualize how it would look with multiple posts  VVVVV -->
-            <div id="post">
-                <div id="post-left">
-                    <div id="post-username">Created by Steve</div>
-                    <div id="post-title">Post Title</div>
-                    <div id="post-body">
-                        placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text 
-                        placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text 
-                        placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text 
-                        placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text 
-                        placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text 
-                        placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text 
-                        placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text 
-                    </div>
-                    <div id="post-like">Likes:</div>
-                    <div id="post-comment">Comments:</div>
-                </div>
             </div>
-            <!-- ^^^^^  Placeholder copy to visualize how it would look with multiple posts  ^^^^^-->
+            <div class="top-on">
+            <?php
+                $sql = "SELECT * FROM posts WHERE username = '" . $_SESSION['name'] . "' ORDER BY likes";
+                $results = array();
+                $data=mysqli_query($db, $sql);
+                while($line = mysqli_fetch_array($data)){
+                    $results[] = $line;
+                }
+                array_map('printPost', $results);
+
+            ?>
+            </div>
         </div>
     </main>
 </body>

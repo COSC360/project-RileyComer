@@ -1,15 +1,39 @@
 function selectTop() {
-    document.getElementById("top-on").style.display="inline";
-    document.getElementById("top-off").style.display="none";
-    document.getElementById("new-off").style.display="inline";
-    document.getElementById("new-on").style.display="none";
+    temp=document.getElementsByClassName("top-on");
+    for (var i = 0; i < temp.length; i++ ) {
+        temp[i].style.display="inline";
+    }
+    temp=document.getElementsByClassName("top-off");
+    for (var i = 0; i < temp.length; i++ ) {
+        temp[i].style.display="none";
+    }
+    temp=document.getElementsByClassName("new-off");
+    for (var i = 0; i < temp.length; i++ ) {
+        temp[i].style.display="inline";
+    }
+    temp=document.getElementsByClassName("new-on");
+    for (var i = 0; i < temp.length; i++ ) {
+        temp[i].style.display="none";
+    }
 }
 
 function selectNew() {
-    document.getElementById("new-on").style.display="inline";
-    document.getElementById("new-off").style.display="none";
-    document.getElementById("top-off").style.display="inline";
-    document.getElementById("top-on").style.display="none";
+    temp=document.getElementsByClassName("new-on");
+    for (var i = 0; i < temp.length; i++ ) {
+        temp[i].style.display="inline";
+    }
+    temp=document.getElementsByClassName("new-off");
+    for (var i = 0; i < temp.length; i++ ) {
+        temp[i].style.display="none";
+    }
+    temp=document.getElementsByClassName("top-off");
+    for (var i = 0; i < temp.length; i++ ) {
+        temp[i].style.display="inline";
+    }
+    temp=document.getElementsByClassName("top-on");
+    for (var i = 0; i < temp.length; i++ ) {
+        temp[i].style.display="none";
+    }
 }
 
 function selectText() {

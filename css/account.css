@@ -13,31 +13,27 @@
     color: var(--text1);
 }
 
-#filter-container {
-    float: right;
-}
-
 #filter-container div {
     padding: 10px 20px;
     border-radius: 10px;
 }
 
-#top-on {
+.top-on{
     background-color: var(--link);
     display:inline;
 }
 
-#top-off {
+.top-off {
     background-color: var(--primary3);
     display: none;
 }
 
-#new-on {
+.new-on {
     background-color: var(--link);
     display: none;
 }
 
-#new-off {
+.new-off {
     background-color: var(--primary3);
     display:inline;
 }

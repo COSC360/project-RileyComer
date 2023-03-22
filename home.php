@@ -67,20 +67,33 @@ session_start();
         <div id="content">
             <a href="create-post.php"><div class="create-post">Create Post</div></a>
             <div id="filter-container">
-                <div id="top-on">Top</div>
-                <div id="top-off" onclick="selectTop()">Top</div>
-                <div id="new-on">New</div>
-                <div id="new-off" onclick="selectNew()">New</div>
+                <div class="top-on">Top</div>
+                <div class="top-off" onclick="selectTop()">Top</div>
+                <div class="new-on">New</div>
+                <div class="new-off" onclick="selectNew()">New</div>
             </div>
-        <?php 
-            $sql = "SELECT * FROM `posts` ORDER BY 'date'";
-            $results = array();
-            $data=mysqli_query($db, $sql);
-            while($line = mysqli_fetch_array($data)){
-                $results[] = $line;
-            }
-            array_map('printPost', $results);
-        ?>
+            <div class="new-on">
+            <?php 
+                $sql = "SELECT * FROM `posts` ORDER BY 'date'";
+                $results = array();
+                $data=mysqli_query($db, $sql);
+                while($line = mysqli_fetch_array($data)){
+                    $results[] = $line;
+                }
+                array_map('printPost', $results);
+            ?>
+            </div>
+            <div class="top-on">
+            <?php 
+                $sql = "SELECT * FROM `posts` ORDER BY 'likes'";
+                $results = array();
+                $data=mysqli_query($db, $sql);
+                while($line = mysqli_fetch_array($data)){
+                    $results[] = $line;
+                }
+                array_map('printPost', $results);
+            ?>
+            </div>
         </div>
     </main>
 </body>
