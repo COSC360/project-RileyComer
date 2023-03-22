@@ -13,16 +13,12 @@
     color: var(--text1);
 }
 
-#filter-container {
-    float: right;
-}
-
 #filter-container div {
     padding: 10px 20px;
     border-radius: 10px;
 }
 
-.top-on {
+.top-on{
     background-color: var(--link);
     display:inline;
 }
