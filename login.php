@@ -1,3 +1,11 @@
+<?php 
+require_once "config.php";
+session_start();
+if (isset($_SESSION["name"]) && $_SESSION["name"] !== "") {
+    header("location: home.php");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html>
     <head lang="en">
@@ -10,9 +18,6 @@
     </head>
     <body>
         <?php
-            require_once "config.php";
-            require_once "session.php";
-
             $email_error = '';
             $password_error = '';
 
@@ -32,7 +37,7 @@
                         $row = mysqli_fetch_row($result);
                         if($row[3]===$password_hash){
                             $_SESSION['name'] = $row[1];
-                            header("Location: home.html");
+                            header("Location: home.php");
                         }else{
                             $password_error.='<p class="error">Incorrect password.</p>';
                         }

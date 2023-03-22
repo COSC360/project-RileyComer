@@ -1,12 +1,12 @@
 <?php
-define('DBSERVER', ''); // Database server
+
+define('DBSERVER', 'localhost'); // Database server
 define('DBUSERNAME', ''); // Database username
 define('DBPASSWORD', ''); // Database password
 define('DBNAME', ''); // Database name
 
-/* 
-Riley's Testing
-
+//Riley's Testing
+/*
 define('DBSERVER', 'localhost'); // Database server
 define('DBUSERNAME', 'rcomer'); // Database username
 define('DBPASSWORD', 'RileyDeanComer2001'); // Database password
