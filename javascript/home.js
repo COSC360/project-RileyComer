@@ -37,14 +37,38 @@ function selectNew() {
 }
 
 function selectText() {
-    document.getElementById("text-on").style.display="inline";
-    document.getElementById("text-off").style.display="none";
-    document.getElementById("image-off").style.display="inline";
-    document.getElementById("image-on").style.display="none";
+    temp=document.getElementsByClassName("text-on");
+    for (var i = 0; i < temp.length; i++ ) {
+        temp[i].style.display="inline";
+    }
+    temp=document.getElementsByClassName("text-off");
+    for (var i = 0; i < temp.length; i++ ) {
+        temp[i].style.display="none";
+    }
+    temp=document.getElementsByClassName("image-off");
+    for (var i = 0; i < temp.length; i++ ) {
+        temp[i].style.display="inline";
+    }
+    temp=document.getElementsByClassName("image-on");
+    for (var i = 0; i < temp.length; i++ ) {
+        temp[i].style.display="none";
+    }
 }
 function selectImage() {
-    document.getElementById("image-on").style.display="inline";
-    document.getElementById("image-off").style.display="none";
-    document.getElementById("text-off").style.display="inline";
-    document.getElementById("text-on").style.display="none";
+    temp=document.getElementsByClassName("image-on");
+    for (var i = 0; i < temp.length; i++ ) {
+        temp[i].style.display="inline";
+    }
+    temp=document.getElementsByClassName("image-off");
+    for (var i = 0; i < temp.length; i++ ) {
+        temp[i].style.display="none";
+    }
+    temp=document.getElementsByClassName("text-off");
+    for (var i = 0; i < temp.length; i++ ) {
+        temp[i].style.display="inline";
+    }
+    temp=document.getElementsByClassName("text-on");
+    for (var i = 0; i < temp.length; i++ ) {
+        temp[i].style.display="none";
+    }
 }

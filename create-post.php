@@ -22,12 +22,29 @@ if (!(isset($_SESSION["name"]) && $_SESSION["name"] !== "")) {
 </head>
 <body>
     <?php 
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
-        //Create User
+    $image_error='';
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit-text'])) {
         $sql = "INSERT INTO `posts` (`username`, `title`, `content`, `likes`, `date`, `tags`) VALUES ('".$_SESSION['name']."', '".$_POST['title']."', '".$_POST['content']."', '0', CURRENT_DATE(), '".$_POST['tags']."')";
         $statement = mysqli_prepare($db, $sql);
         mysqli_stmt_execute($statement);
         header("Location: home.php");
+    }else if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit-image'])) {
+        $image_error='';
+        if (getimagesize($_FILES['post-img']['tmp_name'])==false) {
+            $image_error= '<p class="error">no image.</p>';
+        }else{
+            $image = $_FILES['post-img']['tmp_name'];
+            $size=strlen(file_get_contents(addslashes($image)));
+            if($size<65535){
+                $image= base64_encode(file_get_contents(addslashes($image)));
+                $sql = "INSERT INTO `posts` (`username`, `title`, `img`, `likes`, `date`, `tags`) VALUES ('".$_SESSION['name']."', '".$_POST['title']."', '".$image."', '0', CURRENT_DATE(), '".$_POST['tags']."')";
+                $statement = mysqli_prepare($db, $sql);
+                mysqli_stmt_execute($statement);
+                header("Location: home.php");
+            }else{
+                $image_error.='<p class="error">File is too large.</p>';
+            }
+        }
     }
     ?> 
     <header>
@@ -57,20 +74,33 @@ if (!(isset($_SESSION["name"]) && $_SESSION["name"] !== "")) {
             <div id="create-post-header">
                 <div id="title"> Create Post</div>
                 <div id="filter-container">
-                    <div id="text-on">Text</div>
-                    <div id="text-off" onclick="selectText()">Text</div>
-                    <div id="image-on">Image</div>
-                    <div id="image-off" onclick="selectImage()">Image</div>
+                    <div class="text-on">Text</div>
+                    <div class="text-off" onclick="selectText()">Text</div>
+                    <div class="image-on">Image</div>
+                    <div class="image-off" onclick="selectImage()">Image</div>
                 </div>
             </div>
-            <form method="POST" action="" id="mainForm">
-                <div id="create-post">
-                    <input name="title" placeholder="Title" type="title" id="not-content" class="required">
-                    <textarea name="content" placeholder="Write here" type="content" form="mainForm" class="required"></textarea>
-                    <input name="tags" placeholder="Tags" type="tag" id="not-content">
-                </div>
-            </form>
-            <button name="submit" type="submit" form="mainForm">Post</button>    
+            <div class="text-on">
+                <form method="POST" action="" id="mainForm">
+                    <div id="create-post">
+                        <input name="title" placeholder="Title" type="title" id="not-content" class="required">
+                            <textarea name="content" placeholder="Write here" type="content" form="mainForm" class="required"></textarea>
+                        <input name="tags" placeholder="Tags" type="tag" id="not-content">
+                    </div>
+                    <button name="submit-text" type="submit">Post</button>  
+                </form>
+            </div>
+            <div class="image-on">
+                <form method="POST" action="" id="imageForm" enctype="multipart/form-data">
+                    <div id="create-post">
+                        <input name="title" placeholder="Title" type="title" id="not-content" class="required">
+                        <input name="post-img" type="file" id="changeProfile">
+                        <input name="tags" placeholder="Tags" type="tag" id="not-content">
+                    </div>
+                    <button name="submit-image" type="submit">Post</button>  
+                </form>
+            </div> 
+            <?php echo $image_error; ?>
         </div>
     </main>
 </body>

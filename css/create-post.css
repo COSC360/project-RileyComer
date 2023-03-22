@@ -28,22 +28,22 @@ a{
     float: left;
 }
 
-#text-on {
+.text-on {
     background-color: var(--link);
     display:inline;
 }
 
-#text-off {
+.text-off {
     background-color: var(--primary3);
     display: none;
 }
 
-#image-on {
+.image-on {
     background-color: var(--link);
     display: none;
 }
 
-#image-off {
+.image-off {
     background-color: var(--primary3);
     display:inline;
 }
