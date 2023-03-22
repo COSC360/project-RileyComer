@@ -1,3 +1,11 @@
+<?php 
+require_once "config.php";
+session_start();
+if (isset($_SESSION["name"]) && $_SESSION["name"] !== "") {
+    header("location: home.php");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html>
 
@@ -12,9 +20,6 @@
 
 <body>
     <?php
-
-    require_once "config.php";
-    require_once "session.php";
 
     $email_error = '';
     $name_error = '';
@@ -62,7 +67,7 @@
             $statement = mysqli_prepare($db, $sql);
             mysqli_stmt_execute($statement);
             $_SESSION['name'] = $name;
-            header("Location: home.html");
+            header("Location: home.php");
         }
     }
 

@@ -1,3 +1,7 @@
+<?php 
+require_once "config.php";
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -25,7 +29,13 @@
         </span>
         <span id="banner"><a href="home.html"><h2>Readit</h2></a></span>
         <span id="search-bar-container"><input type="text" placeholder="Search"></span>
-        <span id="username"><a href="account.html">Steve</a></span>
+        <?php 
+        if(isset($_SESSION["name"]) && $_SESSION["name"] !== ''){
+            echo '<span id="username"><a href="account.html">'.$_SESSION['name'].'</a></span>';
+        }else{
+            echo '<span id="username"><a href="login.php">Login</a></span>';
+        }
+        ?>
     </header>
     <main>
         <div id="nav-container">
