@@ -22,22 +22,22 @@
     border-radius: 10px;
 }
 
-#top-on {
+.top-on {
     background-color: var(--link);
-    display:inline;
+    display:inline; 
 }
 
-#top-off {
+.top-off {
     background-color: var(--primary3);
     display: none;
 }
 
-#new-on {
+.new-on {
     background-color: var(--link);
     display: none;
 }
 
-#new-off {
+.new-off {
     background-color: var(--primary3);
     display:inline;
 }

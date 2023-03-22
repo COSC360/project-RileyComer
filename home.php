@@ -16,6 +16,24 @@ session_start();
    <script src="javascript/home.js"></script>
 </head>
 <body>
+
+    <?php
+    function printPost($post){
+        echo '
+            <div class="post">
+                <div class="post-left">
+                    <div class="post-username">Created by '.$post['username'].'</div>
+                    <div class="post-title">'.$post['title'].'</div>
+                    <div class="post-body">
+                        '.$post['content'].'
+                    </div>
+                    <div class="post-like">Likes: '.$post['likes'].'</div>
+                    <div class="post-comment">Comments:</div>
+                </div>
+            </div>
+        ';
+    }
+    ?>
     <header>
         <span id="nav-button-opened" onclick="closeNav()">
             <div></div>
@@ -40,35 +58,40 @@ session_start();
     <main>
         <div id="nav-container">
             <nav>
-                <a href="create-post.html"><div class="create-post">   Create Post   </div></a>
-                <a href="home.html"><h2>Home</h2></a>
+                <a href="create-post.php"><div class="create-post">   Create Post   </div></a>
+                <a href="home.php"><h2>Home</h2></a>
                 <a href="account.html"><h2>Account</h2></a>
             </nav>
         </div>
         <div id="content">
-            <a href="create-post.html"><div class="create-post">Create Post</div></a>
+            <a href="create-post.php"><div class="create-post">Create Post</div></a>
             <div id="filter-container">
-                <div id="top-on">Top</div>
-                <div id="top-off" onclick="selectTop()">Top</div>
-                <div id="new-on">New</div>
-                <div id="new-off" onclick="selectNew()">New</div>
+                <div class="top-on">Top</div>
+                <div class="top-off" onclick="selectTop()">Top</div>
+                <div class="new-on">New</div>
+                <div class="new-off" onclick="selectNew()">New</div>
             </div>
-            <div id="post">
-                <div id="post-left">
-                    <div id="post-username">Created by Steve</div>
-                    <div id="post-title">Post Title</div>
-                    <div id="post-body">
-                        placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text 
-                        placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text 
-                        placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text 
-                        placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text 
-                        placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text 
-                        placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text 
-                        placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text 
-                    </div>
-                    <div id="post-like">Likes:</div>
-                    <div id="post-comment">Comments:</div>
-                </div>
+            <div class="new-on">
+            <?php 
+                $sql = "SELECT * FROM `posts` ORDER BY 'date'";
+                $results = array();
+                $data=mysqli_query($db, $sql);
+                while($line = mysqli_fetch_array($data)){
+                    $results[] = $line;
+                }
+                array_map('printPost', $results);
+            ?>
+            </div>
+            <div class="top-on">
+            <?php 
+                $sql = "SELECT * FROM `posts` ORDER BY 'likes'";
+                $results = array();
+                $data=mysqli_query($db, $sql);
+                while($line = mysqli_fetch_array($data)){
+                    $results[] = $line;
+                }
+                array_map('printPost', $results);
+            ?>
             </div>
         </div>
     </main>

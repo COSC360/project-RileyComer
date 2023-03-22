@@ -1,4 +1,4 @@
-#post {
+.post {
     min-width: auto;
     max-width: 100vw;
     border-radius: 20px;
@@ -16,7 +16,7 @@
     padding-top: 10px;
 }
 
-#post-title{
+.post-title{
     font-size: 2em;
     text-align: left;
     color: white;
@@ -24,7 +24,7 @@
     text-align: left;
 }
 
-#post-username{
+.post-username{
     font-size: 1em;
     color: white;
     margin-top: 10px;
@@ -32,7 +32,7 @@
     float: right;
 }
 
-#post-body{
+.post-body{
     font-size: 1em;
     color: white;
     text-align: left;
@@ -41,19 +41,19 @@
     margin-bottom: 10px;
 }
 
-#post-left{
+.post-left{
     float: left;
     max-width: 100%;
     padding: 40px;
 }
 
-#post-like{
+.post-like{
     color: white;
     float: left;
     padding-right: 20px;
 }
 
-#post-comment{
+.post-comment{
     color: white;
     float: left;
 }
