@@ -15,7 +15,6 @@ session_start();
    <script src="javascript/nav.js"></script>
    <script src="javascript/home.js"></script>
 </head>
-```
 <body>
 
     <?php

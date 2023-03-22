@@ -34,9 +34,9 @@ if (isset($_SESSION["name"]) && $_SESSION["name"] !== "") {
                     if (mysqli_num_rows($result) == 0) {
                         $email_error.='<p class="error">No user exists with this email.</p>';
                     }else {
-                        $row = mysqli_fetch_row($result);
-                        if($row[3]===$password_hash){
-                            $_SESSION['name'] = $row[1];
+                        $row = mysqli_fetch_assoc($result);
+                        if($row['password']===$password_hash){
+                            $_SESSION['name'] = $row['name'];
                             header("Location: home.php");
                         }else{
                             $password_error.='<p class="error">Incorrect password.</p>';
