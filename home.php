@@ -16,24 +16,6 @@ session_start();
    <script src="javascript/home.js"></script>
 </head>
 <body>
-
-    <?php
-    function printPost($post){
-        echo '
-            <div class="post">
-                <div class="post-left">
-                    <div class="post-username">Created by '.$post['username'].'</div>
-                    <div class="post-title">'.$post['title'].'</div>
-                    <div class="post-body">
-                        '.$post['content'].'
-                    </div>
-                    <div class="post-like">Likes: '.$post['likes'].'</div>
-                    <div class="post-comment">Comments:</div>
-                </div>
-            </div>
-        ';
-    }
-    ?>
     <header>
         <span id="nav-button-opened" onclick="closeNav()">
             <div></div>
@@ -77,9 +59,38 @@ session_start();
                 $results = array();
                 $data=mysqli_query($db, $sql);
                 while($line = mysqli_fetch_array($data)){
-                    $results[] = $line;
+                    $sql = "SELECT * FROM `users` WHERE name='" . $line['username'] . "'";
+                    $profile_image='';
+                    if ($result = mysqli_query($db, $sql)) {
+                        if (mysqli_num_rows($result) === 1) {
+                            $row = mysqli_fetch_assoc($result);
+                            if($row['img']!=null){
+                                $profile_image= '<img src="data:image;base64,'.$row['img'].'"/>';
+                            }else{
+                                $profile_image = '<img src="images/default-user.jpg"/>';
+                            }
+                        }
+                    }
+                    echo '
+                        <div class="post">
+                            <div class="post-left">
+                                <div class="post-username">
+                                    <div id="profile-picture">
+                                    '.$profile_image.'
+                                    </div>
+                                    Created by '.$line['username'].'
+                                </div>
+                                <div class="post-title">'.$line['title'].'</div>
+                                <div class="post-body">
+                                    '.$line['content'].'
+                                    <img src="data:image;base64,'.$line['img'].'"/>
+                                </div>
+                                <div class="post-like">Likes: '.$line['likes'].'</div>
+                                <div class="post-comment">Comments:</div>
+                            </div>
+                        </div>
+                    ';
                 }
-                array_map('printPost', $results);
             ?>
             </div>
             <div class="top-on">
@@ -88,9 +99,38 @@ session_start();
                 $results = array();
                 $data=mysqli_query($db, $sql);
                 while($line = mysqli_fetch_array($data)){
-                    $results[] = $line;
+                    $sql = "SELECT * FROM `users` WHERE name='" . $line['username'] . "'";
+                    $profile_image='';
+                    if ($result = mysqli_query($db, $sql)) {
+                        if (mysqli_num_rows($result) === 1) {
+                            $row = mysqli_fetch_assoc($result);
+                            if($row['img']!=null){
+                                $profile_image= '<img src="data:image;base64,'.$row['img'].'"/>';
+                            }else{
+                                $profile_image = '<img src="images/default-user.jpg"/>';
+                            }
+                        }
+                    }
+                    echo '
+                        <div class="post">
+                            <div class="post-left">
+                                <div class="post-username">
+                                    <div id="profile-picture">
+                                    '.$profile_image.'
+                                    </div>
+                                    Created by '.$line['username'].'
+                                </div>
+                                <div class="post-title">'.$line['title'].'</div>
+                                <div class="post-body">
+                                    '.$line['content'].'
+                                    <img src="data:image;base64,'.$line['img'].'"/>
+                                </div>
+                                <div class="post-like">Likes: '.$line['likes'].'</div>
+                                <div class="post-comment">Comments:</div>
+                            </div>
+                        </div>
+                    ';
                 }
-                array_map('printPost', $results);
             ?>
             </div>
         </div>
