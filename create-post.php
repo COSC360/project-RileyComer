@@ -59,7 +59,7 @@ if (!(isset($_SESSION["name"]) && $_SESSION["name"] !== "")) {
             <div></div>
         </span>
         <span id="banner"><a href="home.php"><h2>Readit</h2></a></span>
-        <span id="search-bar-container"><input type="text" placeholder="Search"></span>
+        <span id="search-bar-container"><form action="home.php" method="GET"><input name="search" type="text" placeholder="Search"></form></span>
         <?php
  	if(isset($_SESSION["name"]) && $_SESSION["name"] !== ''){
             echo '<span id="username"><a href="account.php">'.$_SESSION['name'].'</a></span>';
@@ -91,11 +91,11 @@ if (!(isset($_SESSION["name"]) && $_SESSION["name"] !== "")) {
                     <div class="image-off" onclick="selectImage()">Image</div>
                 </div>
             </div>
-                <form method="POST" action="" id="mainForm">
+                <form method="POST" action="" id="mainForm" enctype="multipart/form-data">
                     <div id="create-post">
                         <input name="title" placeholder="Title" type="title" id="not-content" class="required">
                         <input name="tags" placeholder="Tags" type="tag" id="not-content">
-                         <div class="text-on" st>
+                         <div class="text-on">
                             <textarea name="content" placeholder="Write here" type="content"></textarea>
                             <button name="submit-text" type="submit">Post</button>
                         </div>

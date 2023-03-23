@@ -65,11 +65,16 @@ a{
     overflow: auto;
 }
 
-form {
+#content form {
     
     background-color: #3F3F3F;
     border: 30px;
     margin: 30px;
+    min-width: auto;
+    max-width: 90vw;
+    border-radius: 40px;
+    box-shadow: rgba(0, 0, 0, 0.5) -2px 2px 2px;
+    margin-top: 40px;
 }
 
 label {
@@ -99,14 +104,6 @@ button {
     font-weight: bold;
     margin-top: 10px;
     margin-right: 60px;
-}
-
-form {
-    min-width: auto;
-    max-width: 90vw;
-    border-radius: 40px;
-    box-shadow: rgba(0, 0, 0, 0.5) -2px 2px 2px;
-    margin-top: 40px;
 }
 
 #create-post{
