@@ -43,8 +43,7 @@
 }
 
 .post-left{
-    float: left;
-    max-width: 100%;
+    text-align:auto;
     padding: 40px;
 }
 

@@ -60,7 +60,18 @@ if (!(isset($_SESSION["name"]) && $_SESSION["name"] !== "")) {
         </span>
         <span id="banner"><a href="home.php"><h2>Readit</h2></a></span>
         <span id="search-bar-container"><input type="text" placeholder="Search"></span>
-        <span id="username"><a href="account.php">Steve</a></span>
+        <?php
+ 	if(isset($_SESSION["name"]) && $_SESSION["name"] !== ''){
+            echo '<span id="username"><a href="account.php">'.$_SESSION['name'].'</a></span>';
+	    echo '<span id="username"><a href="home.php?logout=true">Logout</a></span>';
+   	    if(isset($_GET['logout']) && $_GET['logout'] === 'true') {
+        	$_SESSION["name"] = '';
+	    }
+	}else{
+            echo '<span id="username"><a href="login.php">Login</a></span>';
+        }
+	?>
+
     </header>
     <main>
         <div id="nav-container">
