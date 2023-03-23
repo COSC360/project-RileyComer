@@ -81,20 +81,20 @@ if (!(isset($_SESSION["name"]) && $_SESSION["name"] !== "")) {
                 </div>
             </div>
             <div class="text-on">
-                <form method="POST" action="" id="mainForm">
+                <form method="POST" action="" id="postTextForm">
                     <div id="create-post">
-                        <input name="title" placeholder="Title" type="title" id="not-content" class="required">
-                            <textarea name="content" placeholder="Write here" type="content" form="mainForm" class="required"></textarea>
+                        <input name="title" placeholder="Title" type="title" id="not-content" class="requiredText">
+                            <textarea name="content" placeholder="Write here" type="content" form="mainForm" class="requiredText"></textarea>
                         <input name="tags" placeholder="Tags" type="tag" id="not-content">
                     </div>
                     <button name="submit-text" type="submit">Post</button>  
                 </form>
             </div>
             <div class="image-on">
-                <form method="POST" action="" id="imageForm" enctype="multipart/form-data">
+                <form method="POST" action="" id="postImageForm" enctype="multipart/form-data">
                     <div id="create-post">
-                        <input name="title" placeholder="Title" type="title" id="not-content" class="required">
-                        <input name="post-img" type="file" id="changeProfile">
+                        <input name="title" placeholder="Title" type="title" id="not-content" class="requiredImage">
+                        <input name="post-img" type="file" id="changeProfile" class="requiredImage">
                         <input name="tags" placeholder="Tags" type="tag" id="not-content">
                     </div>
                     <button name="submit-image" type="submit">Post</button>  
