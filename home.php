@@ -18,23 +18,11 @@ session_start();
 </head>
 
 <body>
-
     <?php
-    function printPost($post){
-        echo '
-            <div class="post">
-                <div class="post-left">
-                    <div class="post-username">Created by '.$post['username'].'</div>
-                    <div class="post-title">'.$post['title'].'</div>
-                    <div class="post-body">
-                        '.$post['content'].'
-                    </div>
-                    <div class="post-like">Likes: '.$post['likes'].'</div>
-                    <div class="post-comment">Comments:</div>
-                </div>
-            </div>
-        ';
-    }
+        $search='';
+        if($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['search'])){
+            $search=$_GET['search'];
+        }
     ?>
     <header>
         <span id="nav-button-opened" onclick="closeNav()">
@@ -50,13 +38,14 @@ session_start();
         <span id="banner"><a href="home.php">
                 <h2>Readit</h2>
             </a></span>
-        <span id="search-bar-container"><input type="text" placeholder="Search"></span>
+        <span id="search-bar-container"><form action="" method="GET"><input name="search" type="text" placeholder="Search" value="<?php echo $search; ?>"></form></span>
         <?php 
         if(isset($_SESSION["name"]) && $_SESSION["name"] !== ''){
             echo '<span id="username"><a href="account.php">'.$_SESSION['name'].'</a></span>';
             echo '<span id="username"><a href="home.php?logout=true">Logout</a></span>';
             if(isset($_GET['logout']) && $_GET['logout'] === 'true') {
                 $_SESSION["name"] = '';
+                header("location: home.php");
             }
         }else{
             echo '<span id="username"><a href="login.php">Login</a></span>';
@@ -133,7 +122,7 @@ session_start();
             </div>
             <div class="top-on">
                 <?php
-                $sql = "SELECT * FROM `posts` ORDER BY 'likes'";
+                $sql = "SELECT * FROM `posts` WHERE `title` like ('%".$search."%')  ORDER BY 'likes'";
                 $results = array();
                 $data = mysqli_query($db, $sql);
                 while ($line = mysqli_fetch_array($data)) {

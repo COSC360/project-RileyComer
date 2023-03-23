@@ -58,13 +58,14 @@ if (!(isset($_SESSION["name"]) && $_SESSION["name"] !== "")) {
         <span id="banner"><a href="home.php">
                 <h2>Readit</h2>
             </a></span>
-        <span id="search-bar-container"><input type="text" placeholder="Search"></span>
+            <span id="search-bar-container"><form action="home.php" method="GET"><input name="search" type="text" placeholder="Search"></form></span>
         <?php 
          if(isset($_SESSION["name"]) && $_SESSION["name"] !== ''){
             echo '<span id="username"><a href="account.php">'.$_SESSION['name'].'</a></span>';
 	        echo '<span id="username"><a href="home.php?logout=true">Logout</a></span>';
             if(isset($_GET['logout']) && $_GET['logout'] === 'true') {
                 $_SESSION["name"] = '';
+                header("location: home.php");
             }
 	    }else{
             echo '<span id="username"><a href="login.php">Login</a></span>';
