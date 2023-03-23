@@ -33,6 +33,16 @@ a{
     display:inline;
 }
 
+#create-post .text-on {
+    background-color: var(--primary2);
+    display:inline;
+}
+
+#create-post .image-on {
+    background-color: var(--primary2);
+    display: none;
+}
+
 .text-off {
     background-color: var(--primary3);
     display: none;
@@ -87,7 +97,7 @@ button {
     margin-top: 20px;
     font-size: 1.5pc;
     font-weight: bold;
-    margin-top: 40px;
+    margin-top: 10px;
     margin-right: 60px;
 }
 
