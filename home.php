@@ -99,24 +99,26 @@ session_start();
                         $post_image = '<img src="data:image;base64,' . $line['img'] . '"/>';
                     }
                     echo '
-                    <div class="post">
-                        <div class="post-left">
-                            <div class="post-username">
-                                <div id="profile-picture">
-                                ' . $profile_image . '
+                    <a class="post-link" href="post.php?id='.$line['id'].'"> 
+                        <div class="post">
+                            <div class="post-left">
+                                <div class="post-username">
+                                    <div id="profile-picture">
+                                    ' . $profile_image . '
+                                    </div>
+                                    Created by ' . $line['username'] . '
                                 </div>
-                                Created by ' . $line['username'] . '
+                                <div class="post-title">' . $line['title'] . '</div>
+                                <div class="post-body">
+                                    ' . $line['content'] . '
+                                    ' . $post_image . '
+                                </div>
+                                <div class="post-like">Likes: ' . $line['likes'] . '</div>
+                                <div class="post-comment">Comments:</div>
                             </div>
-                            <div class="post-title">' . $line['title'] . '</div>
-                            <div class="post-body">
-                                ' . $line['content'] . '
-                                ' . $post_image . '
-                            </div>
-                            <div class="post-like">Likes: ' . $line['likes'] . '</div>
-                            <div class="post-comment">Comments:</div>
                         </div>
-                       </div>
-                ';
+                    </a>
+                    ';
                 }
                 ?>
             </div>
