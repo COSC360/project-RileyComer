@@ -91,26 +91,21 @@ if (!(isset($_SESSION["name"]) && $_SESSION["name"] !== "")) {
                     <div class="image-off" onclick="selectImage()">Image</div>
                 </div>
             </div>
-            <div class="text-on">
                 <form method="POST" action="" id="mainForm">
                     <div id="create-post">
                         <input name="title" placeholder="Title" type="title" id="not-content" class="required">
-                            <textarea name="content" placeholder="Write here" type="content" form="mainForm" class="required"></textarea>
                         <input name="tags" placeholder="Tags" type="tag" id="not-content">
-                    </div>
-                    <button name="submit-text" type="submit">Post</button>  
+                         <div class="text-on" st>
+                            <textarea name="content" placeholder="Write here" type="content"></textarea>
+                            <button name="submit-text" type="submit">Post</button>
+                        </div>
+                        <div class="image-on">
+                            <input name="post-img" type="file">
+                            <button name="submit-image" type="submit">Post</button> 
+                        </div>
+                    </div> 
                 </form>
             </div>
-            <div class="image-on">
-                <form method="POST" action="" id="imageForm" enctype="multipart/form-data">
-                    <div id="create-post">
-                        <input name="title" placeholder="Title" type="title" id="not-content" class="required">
-                        <input name="post-img" type="file" id="changeProfile">
-                        <input name="tags" placeholder="Tags" type="tag" id="not-content">
-                    </div>
-                    <button name="submit-image" type="submit">Post</button>  
-                </form>
-            </div> 
             <?php echo $image_error; ?>
         </div>
     </main>
