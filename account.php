@@ -1,5 +1,6 @@
 <?php
 require_once "config.php";
+require __DIR__ . '/util.php';
 session_start();
 if (!(isset($_SESSION["name"]) && $_SESSION["name"] !== "")) {
     header("location: login.php");
@@ -129,41 +130,7 @@ if (!(isset($_SESSION["name"]) && $_SESSION["name"] !== "")) {
                 $sql = "SELECT * FROM posts WHERE username = '" . $_SESSION['name'] . "' ORDER BY date";
                 $data = mysqli_query($db, $sql);
                 while ($line = mysqli_fetch_array($data)) {
-                    $sql = "SELECT * FROM `users` WHERE name='" . $line['username'] . "'";
-                    $profile_image = '';
-                    if ($result = mysqli_query($db, $sql)) {
-                        if (mysqli_num_rows($result) === 1) {
-                            $row = mysqli_fetch_assoc($result);
-                            if ($row['img'] != null) {
-                                $profile_image = '<img src="data:image;base64,' . $row['img'] . '"/>';
-                            } else {
-                                $profile_image = '<img src="images/default-user.jpg"/>';
-                            }
-                        }
-                    }
-                    $post_image = '';
-                    if (isset($line['img']) && $line['img'] !== '') {
-                        $post_image = '<img src="data:image;base64,' . $line['img'] . '"/>';
-                    }
-                    echo '
-                    <div class="post">
-                        <div class="post-left">
-                            <div class="post-username">
-                                <div id="profile-picture">
-                                ' . $profile_image . '
-                                </div>
-                                Created by ' . $line['username'] . '
-                            </div>
-                            <div class="post-title">' . $line['title'] . '</div>
-                            <div class="post-body">
-                                ' . $line['content'] . '
-                                ' . $post_image . '
-                            </div>
-                            <div class="post-like">Likes: ' . $line['likes'] . '</div>
-                            <div class="post-comment">Comments:</div>
-                        </div>
-                       </div>
-                ';
+                    printPost($line);
                 }
 
                 ?>
@@ -173,41 +140,7 @@ if (!(isset($_SESSION["name"]) && $_SESSION["name"] !== "")) {
                 $sql = "SELECT * FROM posts WHERE username = '" . $_SESSION['name'] . "' ORDER BY likes";
                 $data = mysqli_query($db, $sql);
                 while ($line = mysqli_fetch_array($data)) {
-                    $sql = "SELECT * FROM `users` WHERE name='" . $line['username'] . "'";
-                    $profile_image = '';
-                    if ($result = mysqli_query($db, $sql)) {
-                        if (mysqli_num_rows($result) === 1) {
-                            $row = mysqli_fetch_assoc($result);
-                            if ($row['img'] != null) {
-                                $profile_image = '<img src="data:image;base64,' . $row['img'] . '"/>';
-                            } else {
-                                $profile_image = '<img src="images/default-user.jpg"/>';
-                            }
-                        }
-                    }
-                    $post_image = '';
-                    if (isset($line['img']) && $line['img'] !== '') {
-                        $post_image = '<img src="data:image;base64,' . $line['img'] . '"/>';
-                    }
-                    echo '
-                    <div class="post">
-                        <div class="post-left">
-                            <div class="post-username">
-                                <div id="profile-picture">
-                                ' . $profile_image . '
-                                </div>
-                                Created by ' . $line['username'] . '
-                            </div>
-                            <div class="post-title">' . $line['title'] . '</div>
-                            <div class="post-body">
-                                ' . $line['content'] . '
-                                ' . $post_image . '
-                            </div>
-                            <div class="post-like">Likes: ' . $line['likes'] . '</div>
-                            <div class="post-comment">Comments:</div>
-                        </div>
-                       </div>
-                ';
+                    printPost($line);
                 }
                 ?>
             </div>

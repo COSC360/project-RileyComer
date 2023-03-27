@@ -2,6 +2,10 @@ a{
     width: fit-content;
 }
 
+.post-link{
+    width:auto;
+}
+
 body {
     background-color: var(--background);
 }

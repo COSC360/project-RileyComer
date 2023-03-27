@@ -55,7 +55,6 @@ if (isset($_SESSION["name"]) && $_SESSION["name"] !== "") {
                     <label>Password:</label>
                     <input name="password" type="password" class="required <?php if(!empty($password_error)){echo 'highlight';}?>">
                     <?php echo $password_error; ?>
-                    <a href="forgot.html">Forgot Password?</a>
                     <button type="submit">Login</button>
                 </form>
                 <p>Don't have an account?</p>
