@@ -23,8 +23,7 @@ session_start();
     <?php
     if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['like']))
     {
-        $sql="UPDATE posts
-        SET likes = likes + 1";
+        $sql="UPDATE posts WHERE id='".$_POST['postid']."' SET likes = likes + 1";
         mysqli_query($db, $sql);
     }
     
