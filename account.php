@@ -25,6 +25,13 @@ if (!(isset($_SESSION["name"]) && $_SESSION["name"] !== "")) {
 
 <body>
     <?php
+    if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['like']))
+    {
+        $sql="UPDATE posts
+        SET likes = likes + 1";
+        mysqli_query($db, $sql);
+    }
+    
     $image_error = '';
     if (isset($_POST['submit'])) {
         $image_error = '';
@@ -114,6 +121,18 @@ if (!(isset($_SESSION["name"]) && $_SESSION["name"] !== "")) {
                     echo '<div id="username">' . $_SESSION['name'] . '</div>';
                 } else {
                     echo '<span id="username"><a href="login.php">Login to continue</a></span>';
+                }
+                $sql = "SELECT * FROM `users` WHERE name='" . $_SESSION["name"] . "'";
+                if ($result = mysqli_query($db, $sql)) {
+                    if (mysqli_num_rows($result) === 1) {
+                        $row = mysqli_fetch_assoc($result);
+                        if ($row['role'] =='admin') {
+                            echo '
+                            <a href="reports.php">
+                                <h2>Reports page</h2>
+                            </a>';
+                        }
+                    }
                 }
                 ?>
             </div>

@@ -2,6 +2,16 @@
 require_once "config.php";
 require __DIR__ . '/util.php';
 session_start();
+$sql = "SELECT * FROM `users` WHERE name='" . $_SESSION["name"] . "'";
+if ($result = mysqli_query($db, $sql)) {
+    if (mysqli_num_rows($result) === 1) {
+        $row = mysqli_fetch_assoc($result);
+        if ($row['role'] !='admin') {
+            header("location: account.php");
+            exit;
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -12,27 +22,14 @@ session_start();
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/header.css" />
     <link rel="stylesheet" href="css/nav.css" />
-    <link rel="stylesheet" href="css/home.css" />
+    <link rel="stylesheet" href="css/account.css" />
     <link rel="stylesheet" href="css/post.css" />
     <script src="javascript/nav.js"></script>
     <script src="javascript/home.js"></script>
 </head>
 
 <body>
-    <?php
-    if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['like']))
-    {
-        $sql="UPDATE posts
-        SET likes = likes + 1";
-        mysqli_query($db, $sql);
-    }
-    
-        $search='';
-        if($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['search'])){
-            $search=$_GET['search'];
-        }
-    ?>
-    <header>
+<header>
         <span id="nav-button-opened" onclick="closeNav()">
             <div></div>
             <div></div>
@@ -46,7 +43,7 @@ session_start();
         <span id="banner"><a href="home.php">
                 <h2>Readit</h2>
             </a></span>
-        <span id="search-bar-container"><form action="" method="GET"><input name="search" type="text" placeholder="Search" value="<?php echo $search; ?>"></form></span>
+            <span id="search-bar-container"><form action="home.php" method="GET"><input name="search" type="text" placeholder="Search"></form></span>
         <?php 
         if(isset($_SESSION["name"]) && $_SESSION["name"] !== ''){
             echo '<span id="username"><a href="account.php">'.$_SESSION['name'].'</a></span>';
@@ -75,37 +72,15 @@ session_start();
             </nav>
         </div>
         <div id="content">
-            <a href="create-post.php">
-                <div class="create-post">Create Post</div>
-            </a>
-            <div id="filter-container">
-                <div class="top-on">Top</div>
-                <div class="top-off" onclick="selectTop()">Top</div>
-                <div class="new-on">New</div>
-                <div class="new-off" onclick="selectNew()">New</div>
-            </div>
-            <div class="new-on">
-                <?php
-                $sql = "SELECT * FROM `posts` ORDER BY 'date'";
-                $results = array();
-                $data = mysqli_query($db, $sql);
-                while ($line = mysqli_fetch_array($data)) {
-                    printPost($line);
-                }
-                ?>
-            </div>
-            <div class="top-on">
-                <?php
-                $sql = "SELECT * FROM `posts` WHERE `title` like ('%".$search."%')  ORDER BY 'likes'";
-                $results = array();
-                $data = mysqli_query($db, $sql);
-                while ($line = mysqli_fetch_array($data)) {
-                    printPost($line);
-                }
-                ?>
-            </div>
+            <?php
+             $sql = "SELECT * FROM `reports`";
+            $results = array();
+            $data = mysqli_query($db, $sql);
+            while ($line = mysqli_fetch_array($data)) {
+                printReport($line);
+            }
+            ?>
         </div>
     </main>
 </body>
-
 </html>

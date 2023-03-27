@@ -25,6 +25,13 @@ session_start();
         deletePost($_POST['postid']);
     }
 
+    if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['like']))
+    {
+        $sql="UPDATE posts
+        SET likes = likes + 1";
+        mysqli_query($db, $sql);
+    }
+
     if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['submit-comment']))
     {
         $sql="INSERT INTO `comments` (`postid`, `username`, `content`, `commentid`) VALUES ('".$_POST['postid']."', '".$_SESSION['name']."', '".$_POST['content']."', NULL)";
@@ -32,6 +39,12 @@ session_start();
 
             $sql="INSERT INTO `comments` (`postid`, `username`, `content`, `commentid`) VALUES ('".$_POST['postid']."', '".$_SESSION['name']."', '".$_POST['content']."', ".$_POST['commentid'].")";
         }
+        mysqli_query($db, $sql);
+    }
+
+    if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['submit-report']))
+    {
+        $sql="INSERT INTO `reports` (`postid`, `username`, `content`) VALUES ('".$_POST['postid']."', '".$_SESSION['name']."', '".$_POST['content']."')";
         mysqli_query($db, $sql);
     }
     function getComments($postid){
@@ -191,9 +204,21 @@ session_start();
                     echo '
                         <div class="post">
                             <div class="post-left">
+                            <span>
                                 <form class="delete-post" action="" method="POST">
                                 <input type="hidden" name="postid" value="'.$row['id'].'">
-                                <input type="submit" name="delete" value="delete"></form>
+                                <input type="submit" name="delete" value="Delete">
+                                </form>
+                                </span>
+                                <span>
+                                <form method="POST" action="" id="commentForm">
+                                    <div id="create-comment">
+                                        <input type="hidden" name="postid" value="'.$row['id'].'">
+                                        <textarea name="content" placeholder="Write reason for report here" type="content"></textarea>
+                                        <button name="submit-report" type="submit">Report Post</button>
+                                    </div> 
+                                </form>
+                                </span>
                                 <div class="post-username">
                                     <div id="profile-picture">
                                     ' . $profile_image . '
@@ -205,7 +230,12 @@ session_start();
                                     ' . $row['content'] . '
                                     ' . $post_image . '
                                 </div>
-                                <div class="post-like">Likes: ' . $row['likes'] . '</div>
+                                <div class="post-like">
+                                <form class="like-post" action="" method="POST">
+                                    <input type="hidden" name="postid" value="'.$row['id'].'">
+                                    <input type="submit" name="like" value="Like: ' . $row['likes'] . '">
+                                </form>
+                                </div>
                                 <div class="post-comment">Comments: '.$num_comments.'</div>
                             </div>
                         </div>
