@@ -14,6 +14,7 @@ session_start();
     <link rel="stylesheet" href="css/nav.css" />
     <link rel="stylesheet" href="css/home.css" />
     <link rel="stylesheet" href="css/post.css" />
+    <link rel="stylesheet" href="css/comments.css" />
     <script src="javascript/nav.js"></script>
     <script src="javascript/home.js"></script>
 </head>

@@ -1,0 +1,38 @@
+.comment{
+    max-width: 100vw;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.5) -2px 2px 2px;
+    margin-top: 40px;
+    background-color: #3f3f3f;
+    height: fit-content;
+    overflow: hidden;
+    color: white;
+    min-width: 90%;
+}
+
+.comment-username{
+    font-size: 1em;
+    color: white;
+    float: right;
+    padding: 40px;
+}
+
+.comment-body{
+    font-size: 1em;
+    color: white;
+    text-align: left;
+    overflow: hidden;
+    width: fit-content;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align:auto;
+    padding: 40px;
+}
+
+.replies{
+    padding-left: 40px;
+}
+
+#create-comment{
+    padding-bottom: 200px;
+}
