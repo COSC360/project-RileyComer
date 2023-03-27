@@ -16,6 +16,7 @@ if (!(isset($_SESSION["name"]) && $_SESSION["name"] !== "")) {
    <link rel="stylesheet" href="css/nav.css" />
    <link rel="stylesheet" href="css/create-post.css" />
    <link rel="stylesheet" href="css/req-field.css" />
+   <link rel="stylesheet" href="css/profilepic.css" />
    <script src="javascript/nav.js"></script>
    <script src="javascript/home.js"></script>
    <script type="text/javascript" src="javascript/req-field.js"></script>

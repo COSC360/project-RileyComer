@@ -19,6 +19,7 @@ if (!(isset($_SESSION["name"]) && $_SESSION["name"] !== "")) {
     <link rel="stylesheet" href="css/nav.css" />
     <link rel="stylesheet" href="css/account.css" />
     <link rel="stylesheet" href="css/post.css" />
+    <link rel="stylesheet" href="css/profilepic.css" />
     <script src="javascript/nav.js"></script>
     <script src="javascript/home.js"></script>
 </head>
