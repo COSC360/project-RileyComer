@@ -1,0 +1,40 @@
+.report {
+    max-width: 100vw;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.5) -2px 2px 2px;
+    margin-top: 40px;
+    background-color: #3f3f3f;
+    min-height: fit-content;
+    overflow: hidden;
+}
+
+.title {
+    font-size: 2em;
+    color: white;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.report-username{
+    font-size: 1em;
+    color: white;
+    margin-top: 10px;
+    min-width: fit-content;
+    float: right;
+}
+
+.post-body{
+    font-size: 1em;
+    color: white;
+    text-align: left;
+    overflow: hidden;
+    min-width: 90vm;
+    max-width: 90vm;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.report-left{
+    text-align:auto;
+    padding: 40px;
+}
