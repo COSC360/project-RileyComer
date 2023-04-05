@@ -1,5 +1,5 @@
 <?php
-require_once "config.php";
+require_once "config/config.php";
 require __DIR__ . '/util.php';
 session_start();
 if (!(isset($_SESSION["name"]) && $_SESSION["name"] !== "")) {
@@ -28,7 +28,8 @@ if (!(isset($_SESSION["name"]) && $_SESSION["name"] !== "")) {
     <?php
     if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['like']))
     {
-        $sql="UPDATE posts WHERE id='".$_POST['postid']."' SET likes = likes + 1";
+        $sql="UPDATE posts
+        SET likes = likes + 1";
         mysqli_query($db, $sql);
     }
     
@@ -95,7 +96,7 @@ if (!(isset($_SESSION["name"]) && $_SESSION["name"] !== "")) {
             </nav>
         </div>
         <div id="content">
-            <div id="profile-picture">
+            <div class="profile-picture">
                 <?php
                 $sql = "SELECT * FROM `users` WHERE name='" . $_SESSION["name"] . "'";
                 if ($result = mysqli_query($db, $sql)) {

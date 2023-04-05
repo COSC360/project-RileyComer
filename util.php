@@ -24,7 +24,7 @@ function printPost($post){
                         <div class="post">
                             <div class="post-left">
                                 <div class="post-username">
-                                    <div id="profile-picture">
+                                    <div class="profile-picture">
                                     ' . $profile_image . '
                                     </div>
                                     Created by ' . $post['username'] . '
@@ -64,7 +64,7 @@ function printReport($report){
                         <div class="report">
                             <div class="report-left">
                                 <div class="report-username">
-                                    <div id="report-picture">
+                                    <div class="profile-picture">
                                     ' . $profile_image . '
                                     </div>
                                     Created by ' . $report['username'] . '

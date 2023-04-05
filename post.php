@@ -1,5 +1,5 @@
 <?php
-require_once "config.php";
+require_once "config/config.php";
 require __DIR__ . '/util.php';
 session_start();
 ?>
@@ -29,7 +29,8 @@ session_start();
 
     if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['like']))
     {
-        $sql="UPDATE posts WHERE id='".$_POST['postid']."' SET likes = likes + 1";
+        $sql="UPDATE posts
+        SET likes = likes + 1";
         mysqli_query($db, $sql);
     }
 
@@ -69,7 +70,7 @@ session_start();
             echo '
                 <div class="comment">
                     <div class="comment-username">
-                        <div id="profile-picture">
+                        <div class="profile-picture">
                             ' . $profile_image . '
                         </div>
                         ' . $comment['username'] . '
@@ -115,7 +116,7 @@ session_start();
             echo '
                 <div class="comment">
                     <div class="comment-username">
-                        <div id="profile-picture">
+                        <div class="profile-picture">
                             ' . $profile_image . '
                         </div>
                         ' . $comment['username'] . '
