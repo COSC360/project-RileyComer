@@ -22,8 +22,8 @@ if (isset($_SESSION["name"]) && $_SESSION["name"] !== "") {
             $password_error = '';
 
             if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['email']) && isset($_POST['password'])) {
-                $email = trim($_POST['email']);
-                $password = trim($_POST['password']);
+                $email = trim(mysqli_real_escape_string($db, $_POST['email']));
+                $password = trim(mysqli_real_escape_string($db, $_POST['password']));
                 $password_hash = md5($password);
                 
                 $email_error = '';

@@ -27,10 +27,10 @@ if (isset($_SESSION["name"]) && $_SESSION["name"] !== "") {
     $confirm_error = '';
 
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
-        $name = trim($_POST['name']);
-        $email = trim($_POST['email']);
-        $password = trim($_POST['password']);
-        $confirm_password = trim($_POST['confirm']);
+        $name = trim(mysqli_real_escape_string($db, $_POST['name']));
+        $email = trim(mysqli_real_escape_string($db, $_POST['email']));
+        $password = trim(mysqli_real_escape_string($db, $_POST['password']));
+        $confirm_password = trim(mysqli_real_escape_string($db, $_POST['confirm']));
         $password_hash = md5($password);
 
         $email_error = '';
@@ -66,8 +66,7 @@ if (isset($_SESSION["name"]) && $_SESSION["name"] !== "") {
             $sql = "INSERT INTO `users`(`email`, `name`, `role`, `password`) VALUES ('" . $email . "','" . $name . "','user','" . $password_hash . "')";
             $statement = mysqli_prepare($db, $sql);
             mysqli_stmt_execute($statement);
-            $_SESSION['name'] = $name;
-            header("Location: home.php");
+            header("Location: login.php");
         }
     }
 

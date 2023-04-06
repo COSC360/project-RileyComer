@@ -28,8 +28,7 @@ if (!(isset($_SESSION["name"]) && $_SESSION["name"] !== "")) {
     <?php
     if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['like']))
     {
-        $sql="UPDATE posts
-        SET likes = likes + 1";
+        $sql="UPDATE posts SET likes = likes + 1 WHERE id='".$_POST['postid']."'";
         mysqli_query($db, $sql);
     }
     
@@ -147,7 +146,7 @@ if (!(isset($_SESSION["name"]) && $_SESSION["name"] !== "")) {
             </div>
             <div class="new-on">
                 <?php
-                $sql = "SELECT * FROM posts WHERE username = '" . $_SESSION['name'] . "' ORDER BY date";
+                $sql = "SELECT * FROM `posts` WHERE username = '" . $_SESSION['name'] . "' ORDER BY `date` DESC";
                 $data = mysqli_query($db, $sql);
                 while ($line = mysqli_fetch_array($data)) {
                     printPost($line);
@@ -157,7 +156,7 @@ if (!(isset($_SESSION["name"]) && $_SESSION["name"] !== "")) {
             </div>
             <div class="top-on">
                 <?php
-                $sql = "SELECT * FROM posts WHERE username = '" . $_SESSION['name'] . "' ORDER BY likes";
+                $sql = "SELECT * FROM `posts` WHERE username = '" . $_SESSION['name'] . "' ORDER BY `likes` DESC";
                 $data = mysqli_query($db, $sql);
                 while ($line = mysqli_fetch_array($data)) {
                     printPost($line);

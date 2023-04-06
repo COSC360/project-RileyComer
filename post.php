@@ -22,33 +22,8 @@ session_start();
 
 <body>
     <?php
-    if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['delete']))
-    {
-        deletePost($_POST['postid']);
-    }
+    
 
-    if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['like']))
-    {
-        $sql="UPDATE posts
-        SET likes = likes + 1";
-        mysqli_query($db, $sql);
-    }
-
-    if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['submit-comment']))
-    {
-        $sql="INSERT INTO `comments` (`postid`, `username`, `content`, `commentid`) VALUES ('".$_POST['postid']."', '".$_SESSION['name']."', '".$_POST['content']."', NULL)";
-        if(isset($_POST['commentid'])){
-
-            $sql="INSERT INTO `comments` (`postid`, `username`, `content`, `commentid`) VALUES ('".$_POST['postid']."', '".$_SESSION['name']."', '".$_POST['content']."', ".$_POST['commentid'].")";
-        }
-        mysqli_query($db, $sql);
-    }
-
-    if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['submit-report']))
-    {
-        $sql="INSERT INTO `reports` (`postid`, `username`, `content`) VALUES ('".$_POST['postid']."', '".$_SESSION['name']."', '".$_POST['content']."')";
-        mysqli_query($db, $sql);
-    }
     function getComments($postid){
         global $db;
         $sql = "SELECT * FROM `comments` WHERE postid='" . $postid. "' AND commentid IS NULL";
@@ -79,7 +54,7 @@ session_start();
                         ' . $comment['content'] . '
                     </div>
                     <div class="replies">
-                    <form method="POST" action="" id="commentForm">
+                    <form method="POST" action="actions/create-comment-action.php" id="commentForm">
                         <div id="create-comment">
                             <input type="hidden" name="postid" value="'.$postid.'">
                             <input type="hidden" name="commentid" value="'.$comment['id'].'">
@@ -122,10 +97,10 @@ session_start();
                         ' . $comment['username'] . '
                     </div>
                     <div class="comment-body">
-                        ' . $comment['content'] . '
+                        ' . htmlspecialchars($comment['content'], ENT_QUOTES, 'UTF-8') . '
                     </div>
                     <div class="replies">
-                    <form method="POST" action="" id="commentForm">
+                    <form method="POST" action="actions/create-comment-action.php" id="commentForm">
                         <div id="create-comment">
                             <input type="hidden" name="postid" value="'.$comment['postid'].'">
                             <input type="hidden" name="commentid" value="'.$comment['id'].'">
@@ -206,14 +181,22 @@ session_start();
                     echo '
                         <div class="post">
                             <div class="post-left">
-                            <span>
-                                <form class="delete-post" action="" method="POST">
+                            ';
+                            $sql = "SELECT * FROM `users` WHERE name='" . $_SESSION['name'] . "'";
+                            $result=mysqli_query($db, $sql);
+                            $user = mysqli_fetch_assoc($result);
+                            if($_SESSION['name']==$row['username'] || $user['role']=='admin'){
+                                echo '
+                                <span>
+                                <form class="delete-post" action="actions/create-comment-action.php" method="POST">
                                 <input type="hidden" name="postid" value="'.$row['id'].'">
                                 <input type="submit" name="delete" value="Delete">
                                 </form>
-                                </span>
+                                </span>';
+                            }
+                            echo '
                                 <span>
-                                <form method="POST" action="" id="commentForm">
+                                <form method="POST" action="actions/create-comment-action.php" id="commentForm">
                                     <div id="create-comment">
                                         <input type="hidden" name="postid" value="'.$row['id'].'">
                                         <textarea name="content" placeholder="Write reason for report here" type="content"></textarea>
@@ -227,13 +210,13 @@ session_start();
                                     </div>
                                     Created by ' . $row['username'] . '
                                 </div>
-                                <div class="post-title">' . $row['title'] . '</div>
+                                <div class="post-title">' . htmlspecialchars($row['title'], ENT_QUOTES, 'UTF-8') . '</div>
                                 <div class="post-body">
-                                    ' . $row['content'] . '
+                                    ' . htmlspecialchars($row['content'], ENT_QUOTES, 'UTF-8') . '
                                     ' . $post_image . '
                                 </div>
                                 <div class="post-like">
-                                <form class="like-post" action="" method="POST">
+                                <form class="like-post" action="actions/create-comment-action.php" method="POST">
                                     <input type="hidden" name="postid" value="'.$row['id'].'">
                                     <input type="submit" name="like" value="Like: ' . $row['likes'] . '">
                                 </form>
@@ -244,7 +227,7 @@ session_start();
                     ';
 
                     echo 
-                    '<form method="POST" action="" id="commentForm">
+                    '<form method="POST" action="actions/create-comment-action.php" id="commentForm">
                         <div id="create-comment">
                             <input type="hidden" name="postid" value="'.$row['id'].'">
                             <textarea name="content" placeholder="Write here" type="content"></textarea>

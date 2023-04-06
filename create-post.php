@@ -24,28 +24,8 @@ if (!(isset($_SESSION["name"]) && $_SESSION["name"] !== "")) {
 <body>
     <?php 
     $image_error='';
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit-text'])) {
-        $sql = "INSERT INTO `posts` (`username`, `title`, `content`, `likes`, `date`, `tags`) VALUES ('".$_SESSION['name']."', '".$_POST['title']."', '".$_POST['content']."', '0', CURRENT_DATE(), '".$_POST['tags']."')";
-        $statement = mysqli_prepare($db, $sql);
-        mysqli_stmt_execute($statement);
-        header("Location: home.php");
-    }else if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit-image'])) {
-        $image_error='';
-        if (getimagesize($_FILES['post-img']['tmp_name'])==false) {
-            $image_error= '<p class="error">no image.</p>';
-        }else{
-            $image = $_FILES['post-img']['tmp_name'];
-            $size=strlen(file_get_contents(addslashes($image)));
-            if($size<65535){
-                $image= base64_encode(file_get_contents(addslashes($image)));
-                $sql = "INSERT INTO `posts` (`username`, `title`, `img`, `likes`, `date`, `tags`) VALUES ('".$_SESSION['name']."', '".$_POST['title']."', '".$image."', '0', CURRENT_DATE(), '".$_POST['tags']."')";
-                $statement = mysqli_prepare($db, $sql);
-                mysqli_stmt_execute($statement);
-                header("Location: home.php");
-            }else{
-                $image_error.='<p class="error">File is too large.</p>';
-            }
-        }
+    if(isset($_GET['error'])){
+        $image_error=urldecode($_GET['error']);
     }
     ?> 
     <header>
@@ -92,7 +72,7 @@ if (!(isset($_SESSION["name"]) && $_SESSION["name"] !== "")) {
                     <div class="image-off" onclick="selectImage()">Image</div>
                 </div>
             </div>
-                <form method="POST" action="" id="mainForm" enctype="multipart/form-data">
+                <form method="POST" action="actions/create-post-action.php" id="mainForm" enctype="multipart/form-data">
                     <div id="create-post">
                         <input name="title" placeholder="Title" type="title" id="not-content" class="required">
                         <input name="tags" placeholder="Tags" type="tag" id="not-content">
@@ -104,10 +84,10 @@ if (!(isset($_SESSION["name"]) && $_SESSION["name"] !== "")) {
                             <input name="post-img" type="file">
                             <button name="submit-image" type="submit">Post</button> 
                         </div>
+                        <?php echo $image_error; ?>
                     </div> 
                 </form>
             </div>
-            <?php echo $image_error; ?>
         </div>
     </main>
 </body>

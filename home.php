@@ -17,14 +17,14 @@ session_start();
     <link rel="stylesheet" href="css/profilepic.css" />
     <script src="javascript/nav.js"></script>
     <script src="javascript/home.js"></script>
+    <script src="javascript/update-data.js"></script>
 </head>
 
 <body>
     <?php
     if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['like']))
     {
-        $sql="UPDATE posts
-        SET likes = likes + 1";
+        $sql="UPDATE posts SET likes = likes + 1 WHERE id='".$_POST['postid']."'";
         mysqli_query($db, $sql);
     }
     
@@ -87,7 +87,7 @@ session_start();
             </div>
             <div class="new-on">
                 <?php
-                $sql = "SELECT * FROM `posts` ORDER BY 'date'";
+                $sql = "SELECT * FROM `posts` WHERE `title` LIKE ('%".$search."%') OR `tags` LIKE ('%".$search."%') ORDER BY `date` DESC";
                 $results = array();
                 $data = mysqli_query($db, $sql);
                 while ($line = mysqli_fetch_array($data)) {
@@ -97,7 +97,7 @@ session_start();
             </div>
             <div class="top-on">
                 <?php
-                $sql = "SELECT * FROM `posts` WHERE `title` like ('%".$search."%')  ORDER BY 'likes'";
+                $sql = "SELECT * FROM `posts` WHERE `title` LIKE ('%".$search."%') OR `tags` LIKE ('%".$search."%') ORDER BY `likes` DESC";
                 $results = array();
                 $data = mysqli_query($db, $sql);
                 while ($line = mysqli_fetch_array($data)) {

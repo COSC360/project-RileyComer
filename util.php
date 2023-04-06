@@ -29,15 +29,17 @@ function printPost($post){
                                     </div>
                                     Created by ' . $post['username'] . '
                                 </div>
-                                <div class="post-title">' . $post['title'] . '</div>
+                                <div class="post-title">' . htmlspecialchars($post['title'], ENT_QUOTES, 'UTF-8') . '</div>
                                 <div class="post-body">
-                                    ' . $post['content'] . '
+                                    ' . htmlspecialchars($post['content'], ENT_QUOTES, 'UTF-8') . '
                                     ' . $post_image . '
                                 </div>
-                                <div class="post-like"><form class="like-post" action="" method="POST">
-                                <input type="hidden" name="postid" value="'.$post['id'].'">
-                                <input type="submit" name="like" value="Like: ' . $post['likes'] . '">
-                            </form></div>
+                                <div class="post-like">
+                                    <form class="like-post" action="" method="POST">
+                                        <input type="hidden" name="postid" value="'.$post['id'].'">
+                                        <input type="submit" name="like" value="Like: ' . $post['likes'] . '">
+                                    </form>
+                                </div>
                                 <div class="post-comment">Comments: '.$num_comments.'</div>
                             </div>
                         </div>
