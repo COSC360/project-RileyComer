@@ -14,11 +14,9 @@ https://www.figma.com/file/dlQzIxpewXtNf9EpWwU15P/360-Project?node-id=0%3A1&t=J2
 - Users can comment on other posts if logged in.
 - Users can add category tags to their posts.
 - Users can search for posts.
-- Users can filter their feed to a specific category.
-- Users can report comments, posts, and Users.
-- Users can specify what posts they want in their feed on their account page.
+- Users can filter their feed to a specific category by searching for a catagory.
+- Users can report comments, posts.
 - Users can like posts.
 - Admin can remove posts.
-- Admin can ban accounts.
 - Admin can remove comments.
 - Admin can view incoming reports.
