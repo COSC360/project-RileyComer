@@ -22,11 +22,12 @@ session_start();
 
 <body>
     <?php
-    
 
-    function getComments($postid){
+
+    function getComments($postid)
+    {
         global $db;
-        $sql = "SELECT * FROM `comments` WHERE postid='" . $postid. "' AND commentid IS NULL";
+        $sql = "SELECT * FROM `comments` WHERE postid='" . $postid . "' AND commentid IS NULL";
         $data = mysqli_query($db, $sql);
 
         while ($comment = mysqli_fetch_array($data)) {
@@ -40,39 +41,64 @@ session_start();
                     } else {
                         $profile_image = '<img src="images/default-user.jpg"/>';
                     }
+                    echo '
+                    <div class="comment">
+                    ';
+                    $sql = "SELECT * FROM `users` WHERE name='" . $_SESSION['name'] . "'";
+                    $result = mysqli_query($db, $sql);
+                    $user = mysqli_fetch_assoc($result);
+                    if ($_SESSION['name'] == $comment['username'] || $user['role'] == 'admin') {
+                        echo '
+                        <form class="delete-post" action="actions/create-comment-action.php" method="POST">
+                                <input type="hidden" name="postid" value="' . $postid . '">
+                                <input type="hidden" name="commentid" value="' . $comment['id'] . '">
+                                <input type="submit" name="delete-comment" value="Delete">
+                            </form>
+                        ';
+                    }else{
+                        echo '
+                        <form class="delete-post" action="actions/create-comment-action.php" method="POST">
+                                <input type="hidden" name="postid" value="' . $postid . '">
+                                <input type="hidden" name="commentid" value="' . $comment['id'] . '">
+                                <input type="hidden" name="content" value="' . $comment['content'] . '">
+                                <input type="submit" name="submit-comment-report" value="Report">
+                            </form>
+                        ';
+                    }
+                    echo '
+                        <div class="comment-username">
+                            <div class="profile-picture">
+                                ' . $profile_image . '
+                            </div>
+                            ' . $comment['username'] . '
+                        </div>
+                        
+                        <div class="comment-body">
+                            ' . $comment['content'] . '
+                        </div>
+                        <div class="replies">
+                        <form method="POST" action="actions/create-comment-action.php" id="commentForm">
+                            <div id="create-comment">
+                                <input type="hidden" name="postid" value="' . $postid . '">
+                                <input type="hidden" name="commentid" value="' . $comment['id'] . '">
+                                <textarea name="content" placeholder="Write here" type="content"></textarea>
+                                <button name="submit-comment" type="submit">Post</button>
+                            </div> 
+                        </form>
+                            ';
+                    getReplies($comment['id']);
+                    echo '      </div>
+                            </div>
+                        ';
                 }
             }
-            echo '
-                <div class="comment">
-                    <div class="comment-username">
-                        <div class="profile-picture">
-                            ' . $profile_image . '
-                        </div>
-                        ' . $comment['username'] . '
-                    </div>
-                    <div class="comment-body">
-                        ' . $comment['content'] . '
-                    </div>
-                    <div class="replies">
-                    <form method="POST" action="actions/create-comment-action.php" id="commentForm">
-                        <div id="create-comment">
-                            <input type="hidden" name="postid" value="'.$postid.'">
-                            <input type="hidden" name="commentid" value="'.$comment['id'].'">
-                            <textarea name="content" placeholder="Write here" type="content"></textarea>
-                            <button name="submit-comment" type="submit">Post</button>
-                        </div> 
-                    </form>
-                        ';
-                        getReplies($comment['id']);
-        echo '      </div>
-                </div>
-            ';
         }
     }
 
-    function getReplies($commentid){
+    function getReplies($commentid)
+    {
         global $db;
-        $sql = "SELECT * FROM `comments` WHERE commentid='" . $commentid. "'";
+        $sql = "SELECT * FROM `comments` WHERE commentid='" . $commentid . "'";
         $data = mysqli_query($db, $sql);
 
         while ($comment = mysqli_fetch_array($data)) {
@@ -90,6 +116,30 @@ session_start();
             }
             echo '
                 <div class="comment">
+                ';
+                $sql = "SELECT * FROM `users` WHERE name='" . $_SESSION['name'] . "'";
+                    $result = mysqli_query($db, $sql);
+                    $user = mysqli_fetch_assoc($result);
+                
+                    if ($_SESSION['name'] == $comment['username'] || $user['role'] == 'admin') {
+                        echo '
+                        <form class="delete-post" action="actions/create-comment-action.php" method="POST">
+                                <input type="hidden" name="postid" value="' . $comment['postid'] . '">
+                                <input type="hidden" name="commentid" value="' . $comment['id'] . '">
+                                <input type="submit" name="delete-comment" value="Delete">
+                            </form>
+                        ';
+                    }else{
+                        echo '
+                        <form class="delete-post" action="actions/create-comment-action.php" method="POST">
+                                <input type="hidden" name="postid" value="' . $comment['postid'] . '">
+                                <input type="hidden" name="commentid" value="' . $comment['id'] . '">
+                                <input type="hidden" name="content" value="' . $comment['content'] . '">
+                                <input type="submit" name="submit-comment-report" value="Report">
+                            </form>
+                        ';
+                    }
+                    echo '
                     <div class="comment-username">
                         <div class="profile-picture">
                             ' . $profile_image . '
@@ -102,15 +152,15 @@ session_start();
                     <div class="replies">
                     <form method="POST" action="actions/create-comment-action.php" id="commentForm">
                         <div id="create-comment">
-                            <input type="hidden" name="postid" value="'.$comment['postid'].'">
-                            <input type="hidden" name="commentid" value="'.$comment['id'].'">
+                            <input type="hidden" name="postid" value="' . $comment['postid'] . '">
+                            <input type="hidden" name="commentid" value="' . $comment['id'] . '">
                             <textarea name="content" placeholder="Write here" type="content"></textarea>
                             <button name="submit-comment" type="submit">Post</button>
                         </div> 
                     </form>
                         ';
-                        getReplies($comment['id']);
-        echo '      </div>
+            getReplies($comment['id']);
+            echo '      </div>
                 </div>
             ';
         }
@@ -176,29 +226,29 @@ session_start();
                     if (isset($row['img']) && $row['img'] !== '') {
                         $post_image = '<img src="data:image;base64,' . $row['img'] . '"/>';
                     }
-                    $sql= "SELECT * FROM `comments` WHERE postid='" . $row['id'] . "'";
-                    $num_comments=mysqli_num_rows(mysqli_query($db, $sql));
+                    $sql = "SELECT * FROM `comments` WHERE postid='" . $row['id'] . "'";
+                    $num_comments = mysqli_num_rows(mysqli_query($db, $sql));
                     echo '
                         <div class="post">
                             <div class="post-left">
                             ';
-                            $sql = "SELECT * FROM `users` WHERE name='" . $_SESSION['name'] . "'";
-                            $result=mysqli_query($db, $sql);
-                            $user = mysqli_fetch_assoc($result);
-                            if($_SESSION['name']==$row['username'] || $user['role']=='admin'){
-                                echo '
+                    $sql = "SELECT * FROM `users` WHERE name='" . $_SESSION['name'] . "'";
+                    $result = mysqli_query($db, $sql);
+                    $user = mysqli_fetch_assoc($result);
+                    if ($_SESSION['name'] == $row['username'] || $user['role'] == 'admin') {
+                        echo '
                                 <span>
                                 <form class="delete-post" action="actions/create-comment-action.php" method="POST">
-                                <input type="hidden" name="postid" value="'.$row['id'].'">
+                                <input type="hidden" name="postid" value="' . $row['id'] . '">
                                 <input type="submit" name="delete" value="Delete">
                                 </form>
                                 </span>';
-                            }
-                            echo '
+                    }
+                    echo '
                                 <span>
                                 <form method="POST" action="actions/create-comment-action.php" id="commentForm">
                                     <div id="create-comment">
-                                        <input type="hidden" name="postid" value="'.$row['id'].'">
+                                        <input type="hidden" name="postid" value="' . $row['id'] . '">
                                         <textarea name="content" placeholder="Write reason for report here" type="content"></textarea>
                                         <button name="submit-report" type="submit">Report Post</button>
                                     </div> 
@@ -217,24 +267,24 @@ session_start();
                                 </div>
                                 <div class="post-like">
                                 <form class="like-post" action="actions/create-comment-action.php" method="POST">
-                                    <input type="hidden" name="postid" value="'.$row['id'].'">
+                                    <input type="hidden" name="postid" value="' . $row['id'] . '">
                                     <input type="submit" name="like" value="Like: ' . $row['likes'] . '">
                                 </form>
                                 </div>
-                                <div class="post-comment">Comments: '.$num_comments.'</div>
+                                <div class="post-comment">Comments: ' . $num_comments . '</div>
                             </div>
                         </div>
                     ';
 
-                    echo 
-                    '<form method="POST" action="actions/create-comment-action.php" id="commentForm">
+                    echo
+                        '<form method="POST" action="actions/create-comment-action.php" id="commentForm">
                         <div id="create-comment">
-                            <input type="hidden" name="postid" value="'.$row['id'].'">
+                            <input type="hidden" name="postid" value="' . $row['id'] . '">
                             <textarea name="content" placeholder="Write here" type="content"></textarea>
                             <button name="submit-comment" type="submit">Post</button>
                         </div> 
                     </form>'
-                ;
+                    ;
 
                     //comments
                     getComments($_GET['id']);

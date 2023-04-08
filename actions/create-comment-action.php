@@ -38,4 +38,17 @@ if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['submit-report']))
     mysqli_query($db, $sql);
     header("location: ../post.php?id=".$_POST['postid']."");
 }
+
+if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['submit-comment-report']))
+{
+    $sql="INSERT INTO `reports` (`postid`, `commentid`, `username`, `content`) VALUES ('".$_POST['postid']."', '".$_POST['commentid']."', '".$_SESSION['name']."', '".mysqli_real_escape_string($db, $_POST['content'])."')";
+    mysqli_query($db, $sql);
+    header("location: ../post.php?id=".$_POST['postid']."");
+}
+
+if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['delete-comment']))
+{
+    deleteComment($_POST['commentid']);
+    header("location: ../reports.php");
+}
 ?>

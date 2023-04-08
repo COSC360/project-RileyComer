@@ -59,25 +59,49 @@ function printReport($report){
                             } else {
                                 $profile_image = '<img src="images/default-user.jpg"/>';
                             }
+                            if($report['commentid']==null){
+                            echo '
+                            <a class="post-link" href="post.php?id='.$report['postid'].'"> 
+                                <div class="report">
+                                    <div class="report-left">
+                                        <div class="report-username">
+                                            <div class="profile-picture">
+                                            ' . $profile_image . '
+                                            </div>
+                                            Created by ' . $report['username'] . '
+                                        </div>
+                                        <div class="post-title">Post:</div>
+                                        <div class="post-body">
+                                            ' . $report['content'] . '
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            ';
+                            }else{
+                                echo '
+                                <div class="report">
+                                    <div class="report-left">
+                                        <div class="report-username">
+                                            <div class="profile-picture">
+                                            ' . $profile_image . '
+                                            </div>
+                                            Created by ' . $report['username'] . '
+                                        </div>
+                        <form class="delete-post" action="actions/create-comment-action.php" method="POST">
+                                <input type="hidden" name="commentid" value="' . $report['commentid'] . '">
+                                <input type="submit" name="delete-comment" value="Delete">
+                            </form>
+                                        <div class="post-title">Comment:</div>
+                                        <div class="post-body">
+                                            ' . $report['content'] . '
+                                        </div>
+                                    </div>
+                                </div>
+                                ';
+                            }
                         }
                     }
-                    echo '
-                    <a class="post-link" href="post.php?id='.$report['postid'].'"> 
-                        <div class="report">
-                            <div class="report-left">
-                                <div class="report-username">
-                                    <div class="profile-picture">
-                                    ' . $profile_image . '
-                                    </div>
-                                    Created by ' . $report['username'] . '
-                                </div>
-                                <div class="post-body">
-                                    ' . $report['content'] . '
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    ';
 }
 
 function deletePost($postid){
@@ -96,7 +120,25 @@ function deletePost($postid){
                 mysqli_query($db, $sql);
                 $sql = "DELETE FROM `reports` WHERE postid='" . $postid . "'";
                 mysqli_query($db, $sql);
-                header("location: home.php");
+            }
+        }
+    }
+}
+
+function deleteComment($commentid){
+    global $db;
+    $sql = "SELECT * FROM `comments` WHERE id='" . $commentid . "'";
+    if ($result = mysqli_query($db, $sql)) {
+        if (mysqli_num_rows($result) === 1) {
+            $row = mysqli_fetch_assoc($result);
+            $sql = "SELECT * FROM `users` WHERE name='" . $_SESSION['name'] . "'";
+            $result=mysqli_query($db, $sql);
+            $user = mysqli_fetch_assoc($result);
+            if($_SESSION['name']==$row['username'] || $user['role']=='admin'){
+                $sql = "UPDATE `comments` SET `content`='DELETED' WHERE id='" . $commentid . "'";
+                mysqli_query($db, $sql);
+                $sql = "DELETE FROM `reports` WHERE commentid='" . $commentid . "'";
+                mysqli_query($db, $sql);
             }
         }
     }
