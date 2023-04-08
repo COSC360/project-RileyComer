@@ -217,10 +217,17 @@ session_start();
             if ($result = mysqli_query($db, $sql)) {
                 if (mysqli_num_rows($result) === 1) {
                     $row = mysqli_fetch_assoc($result);
-                    if ($row['img'] != null) {
-                        $profile_image = '<img src="data:image;base64,' . $row['img'] . '"/>';
-                    } else {
-                        $profile_image = '<img src="images/default-user.jpg"/>';
+                    $sql = "SELECT * FROM `users` WHERE name='" . $row['username'] . "'";
+                    $profile_image = '';
+                    if ($result = mysqli_query($db, $sql)) {
+                        if (mysqli_num_rows($result) === 1) {
+                            $user = mysqli_fetch_assoc($result);
+                            if ($user['img'] != null) {
+                                $profile_image = '<img src="data:image;base64,' . $user['img'] . '"/>';
+                            } else {
+                                $profile_image = '<img src="images/default-user.jpg"/>';
+                            }
+                        }
                     }
                     $post_image = '';
                     if (isset($row['img']) && $row['img'] !== '') {
